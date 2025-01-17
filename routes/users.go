@@ -56,3 +56,17 @@ func login(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
 
 }
+
+func users(context *gin.Context) {
+	var list models.User
+
+	users, err := list.AllUsersList()
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not fetch user list"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": users})
+
+}
